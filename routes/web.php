@@ -22,3 +22,4 @@ Route::get('/ajouter', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::post('skill', 'SkillController@store')->name('skill.store');
