@@ -2,13 +2,17 @@
 
 namespace App;
 
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-
+use Laravel\Passport\HasApiTokens;
 class User extends Authenticatable
 {
-    use Notifiable;
+    use HasApiTokens, Notifiable;
+
+    protected $primary_key = 'emp_no';
+
+
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +20,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'firstname', 'bio', 'email', 'password',
+        'name', 'email', 'password',
     ];
 
     /**
@@ -36,12 +40,4 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * Récupère les compétences de l'utilisateur.
-     */
-    public function skills()
-    {
-        return $this->belongsToMany('App\Skill')->withPivot('level');
-    }
 }
